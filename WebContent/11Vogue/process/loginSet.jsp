@@ -57,7 +57,8 @@
 		jdbc.rs = jdbc.pstmt.executeQuery();
 		// executeQuery() 쿼리실행 메서드
 
-		// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
+		// 14. 저장된 결과집합의 레코드가 있다면 next() 메서드가 true임!
+		// 해당 아이디가 있다는 말임
 		if (jdbc.rs.next()) {
 			// 1. 비밀번호
 			dbmpw = jdbc.rs.getString("mpw");
@@ -80,10 +81,14 @@
 			);
 			
 			// 입력된 비밀번호 암호화후 DB비밀번호와 비교한다!
-			if(dbmpw.equals(shampw)){
+			if(dbmpw.equals(shampw)){ // 로그인 성공
 				out.print("<h1>비밀번호가 일치합니다!</h1>");
+				/* 
+					[ 로그인 성공시 필수 셋팅할 것은? ]
+					-> 세션변수셋팅하기!
+				*/
 			} //// if /////
-			else{
+			else{ // 비밀번호 불일치로 인한 로그인 실패
 				out.print("<h1>비밀번호가 일치하지 않습니다!</h1>");
 			} ////// else //////
 			
