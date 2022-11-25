@@ -37,7 +37,8 @@
         <script src="./js/login.js"></script>
     </head>
     <body>
-        
+        <!-- 1. 상단영역 -->
+        <%@ include file="include/top.jsp" %>
         <!-- 2. 메인영역 -->
         <div id="cont" class="bgc">
             <main class="cont ibx">
@@ -113,6 +114,6 @@
             </main>
         </div>
         <!-- 3. 하단영역 -->
-       
+        <%@ include file="include/info.jsp" %>
     </body>
 </html>
