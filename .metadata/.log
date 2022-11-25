@@ -2239,3 +2239,21 @@ java.net.UnknownHostException: jope.ow2.org
 
 !ENTRY org.eclipse.jst.server.tomcat.core 4 0 2022-11-25 11:44:36.539
 !MESSAGE The server cannot be started because one or more of the ports are invalid. Open the server editor and correct the invalid ports.
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:01.640
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:01.641
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:01.641
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:10.280
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:10.281
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
+
+!ENTRY org.eclipse.wst.html.ui 1 1 2022-11-25 12:10:10.282
+!MESSAGE No line style provider for org.eclipse.wst.html.SCRIPT
