@@ -1,3 +1,4 @@
+<%@page import="sun.util.logging.resources.logging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="common.JDBConnector" %>
@@ -86,7 +87,43 @@
 				/* 
 					[ 로그인 성공시 필수 셋팅할 것은? ]
 					-> 세션변수셋팅하기!
+					세션이란? Session
+					-> 로그인 한 사용자 정보를  저장하여
+					사용하는 시간동안 로그인 상태를 유지해주는
+					서버 메모리 관리 규칙
+					-> 로그인한 사용자 정보는 세션변수에 저장하여
+					로그인한 같은 도메인 안에서 어느곳에서든지
+					사용될 수 있도록 제공해준다!
+					-> 시스템을 사용하지 않은 상태로 제한시간을
+					주는데 20분이 기본적인 세션 한계시간이다
+					
+					[ 세션의 시작은 언제부터인가? ]
+					-> 자바웹에서는 매우 간단히 세션변수를 셋팅하면
+					바로 세션이 시작된다!
+					-> 세션변수 셋팅법:
+						session.setAttribute(세션변수명,값)
+						-> 세션변수 호출법:
+						session.getAttribute(세션변수명)
+					
+					[ 세션은 어떻게 강제 종료하나? ]
+					-> 세션 강제종료 메서드를 호출한다
+					session.invalidate()
+					-> 세션이 유효하지 않게 해라
 				*/
+				
+				// 세션변수에 사용자 이름을 생성한다(세션시작)
+				session.setAttribute("name", name);
+				// 페이지 강제이동하기
+				response.sendRedirect("../index.jsp");
+				
+				// 세션,리퀘스트,리스폰스 내장객체는
+				// 바로 생성없이 사용할 수 있는 static객체로 설정됨
+				
+				
+				
+				
+				
+				
 			} //// if /////
 			else{ // 비밀번호 불일치로 인한 로그인 실패
 				out.print("<h1>비밀번호가 일치하지 않습니다!</h1>");
