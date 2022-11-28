@@ -16,7 +16,7 @@
                 e.preventDefault();
             })
 
-        })
+        });
     </script>
     <title>비동기 통신 테스트 페이지</title>
 </head>
