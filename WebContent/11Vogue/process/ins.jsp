@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page import="common.JDBConnector" %>
 <%@ page import="common.SHA256" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원가입 입력처리 페이지</title>
-</head>
-<body>
-	<%
+<%
 	//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
 	request.setCharacterEncoding("UTF-8");
 	
@@ -41,17 +34,24 @@
 		String email2 = request.getParameter("email2");
 		
 		// 넘어온값 찍기!
-		out.println(
-			"<h1>" +
-			"♣ mid : " + mid + "<br>" +
-			"♣ mpw : " + mpw + "<br>" +
-			"♣ sha256 : " + shampw + "<br>" +
-			"♣ mnm : " + mnm + "<br>" +
-			"♣ gen : " + gen + "<br>" +
-			"♣ email1 : " + email1 + "<br>" +
-			"♣ seleml : " + seleml + "<br>" +
-			"♣ email2 : " + email2 + "</h1>"
-		);
+// 		out.println(
+// 			"<h1>" +
+// 			"♣ mid : " + mid + "<br>" +
+// 			"♣ mpw : " + mpw + "<br>" +
+// 			"♣ sha256 : " + shampw + "<br>" +
+// 			"♣ mnm : " + mnm + "<br>" +
+// 			"♣ gen : " + gen + "<br>" +
+// 			"♣ email1 : " + email1 + "<br>" +
+// 			"♣ seleml : " + seleml + "<br>" +
+// 			"♣ email2 : " + email2 + "</h1>"
+// 		);
+		
+		// 선택박스값이 "free"일 경우 email2값을 email2에 입력하고
+		// 아닐경우에는 selem1값을 email2에 입력한다
+		if(!seleml.equals("free")) {
+			// "free"가 아닐경우엔 email2에 seleml을 넣어준다
+			email2 = seleml;
+		} ///// if //////
 
 		
 		
@@ -92,14 +92,8 @@
      	// 14. 연결해제하기
      	jdbc.close();
      	
-     	// 15. 입력성공시 메시지 띄우기
-     	// JS alert창 띄우고 확인시 list페이지로 돌아가기!
-//      	out.println(
-//      		"<script>"+		
-//      		"alert('저장성공!');"+		
-//      		"location.href='../list.jsp';"+		
-//      		"</script>"
-//      	);
+     	// 15. 입력성공시 리턴할 메시지찍기
+     	out.println("ok");
      	
      	// [ 입력시 한글 깨짐 문제발생 해결 ]
      	// -> 입력성공후 한글이 물음표(?)로 입력된 경우 원인은?
@@ -124,12 +118,10 @@
 	} ////////// try //////////
 	catch(Exception e){
  		// DB연결 실패시 여기로 들어옴!
- 		out.println("에러메시지:");
- 		out.println(e.toString());
+ 		out.println("no");
+//  		out.println(e.toString());
  		// toString() 문자데이터로 변환하는 메서드
 	} ///////// catch //////////
 
 
 %>
-</body>
-</html>
