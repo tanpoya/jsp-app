@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%////////////////////////////////////////////////////////////
-	   // JSP 세션이 셋팅된 경우에 if문ㅇ 중괄호 안이 표현됨
-       if(session.getAttribute("name")!=null){
-          // 중괄호열고 맨 아래 JSP코드블럭에 줄괄호를 닫았음
-          // 이 방법은 중간에 html, css, js를 그대로 코딩해서
-          // 화면에 바로 출력 시키는 방법이다(out.print로 출력시 복잡함)
-////////////////////////////////////////////////////////////%>
+	pageEncoding="UTF-8"%>
+<% 
+/////////////////////////////////////////////////////////////
+	// JSP 세션이 셋팅된 경우에 if문 중괄호 안이 표현됨
+	if (session.getAttribute("name") != null) {
+		// 중괄호열고 맨 아래 JSP코드블럭에 중괄호를 닫았음
+		// 이 방법은 중간에 html,css,js를 그대로 코딩해서
+		// 화면에 바로 출력 시키는 방법이다!(out.print로 출력시 복잡함!)
+/////////////////////////////////////////////////////////////
+%>
 <script>
   /*/////////////////////////////////////////////////
     함수명: loginSet
@@ -30,6 +32,8 @@
           .attr("title","로그아웃")
 
           // 3. 로그아웃 클릭시 로그아웃하기
+          // 주의: linksys.js에 "로그아웃"예외처리필요!
+          // 이것을 안해주면 sns중 하나로 분류되어 404새창이 뜸!
           .click(function(){
               // 비동기통신으로 로그아웃 처리 페이지호출!
               // Ajax - $.post() 로 처리!
@@ -46,20 +50,11 @@
                       if(res==="ok"){
 
                           // 메시지
-                          alert("안전하게 로그아웃 되었습니다!");
-
-                          // 이전페이지가기
-                          // history.back();
-                          /*닷홈페이지가 안내페이지로 
-                          넘어가므로 이전으로 가기를
-                          하면 자신이 보던 페이지가 새로고쳐진다!*/
-                          
+                          alert("안전하게 로그아웃 되었습니다!");                          
 
                           // 첫페이지로 리로드
                           location.replace("index.jsp");
                           
-
-
                       } ////// if ////////////////
                       else{
 
@@ -122,7 +117,7 @@
           fontWeight: "bold",
           textAlign: "center",
           whiteSpace: "nowrap",
-          zIndex:"-1",
+          zIndex:"-1"
       }); ////// css //////////
 
 
@@ -131,18 +126,17 @@
 
 </script>
 <%
-
-// 메시지 세션값 읽어오기 - session.getAttribute() 사용
-String msg = session.getAttribute("name")+"님, 환영합니다!";
-// 권한 세션값 읽어오기
-String auth = session.getAttribute("auth").toString();
-// 로그인 셋팅 JS함수 호출하기!!!
-// 위쪽에 출력되는 JS함수를 호출함
-// loginSet(메시지,권한)
-out.print("<script>loginSet('"+msg+"','"+auth+"');</script>");
+/////////////////////////////////////////////////////////////
+	// 메시지 세션값 읽어오기 - session.getAttribute() 사용
+	String msg = session.getAttribute("name") + "님, 환영합니다!";
+	// 권한 세션값 읽어오기
+	String auth = session.getAttribute("auth").toString();
+	// 로그인 셋팅 JS함수 호출하기!!!
+	// 위쪽에 출력되는 JS함수를 호출함
+	// loginSet(메시지,권한)
+	out.print("<script>loginSet('" + msg + "','" + auth + "');</script>");
 
 } /////// if //////////////
-// 맨위에서 열어놓은 if문이 여기서 닫힌다
-
-
+// 맨위에서 열어놓은 if문이 여기서 닫힘! 여기까지 세션셋팅시 출력됨!
+////////////////////////////////////////////////////////////////
 %>
