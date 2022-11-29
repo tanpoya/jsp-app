@@ -123,22 +123,50 @@ $(() => {
                     // 4. 전송할데이터타입
                     dataType:"html",
                     // 5. 비동기옵션(실행시점을 본 페이지와 맞추는옵션)
+                    async:false,
                     // 비동기 옵션을 꺼야(false)
                     // 전역변수 pass에 값을 넣을 수 있다
-                    // 6. 성공처리,
+                    // 6. 성공처리
+                    success:function(res){
+                        res = res.trim(); // 앞뒤공백제거
+                        console.log("결과:",res);
+                        if(res === "ok") { // 아이디사용가능
+                            $("#mid").siblings(".msg")
+
+                            // 메시지 띄우기
+                            $("#mid")
+                            .siblings(".msg")
+                            .text("훌륭한 아이디네요~!")
+                            .addClass("on"); //글자녹색
+                        } /////// if /////////
+                        else if(res === "no") { // 기존에 있음
+                            // 메시지 띄우기
+                            $("#mid")
+                            .siblings(".msg")
+                            .text("사용중인 아이디입니다")
+                            .removeClass("on"); //빨간글자
+
+                            // 불통과 업데이트 필수
+                            pass = false;
+
+                        } ////////// else if ///////////
+                        else { // 기타 에러시
+                            alert("관리자에게 문의바랍니다"+res);
+
+                            // 불통과 업데이트 필수
+                            pass = false;
+                        } //////// else //////////
+                    },
                     // 7. 실패처리
-                })
-
-
-
-
-
-
-                // 메시지 띄우기
-                $(this)
-                    .siblings(".msg")
-                    .text("훌륭한 아이디네요~!")
-                    .addClass("on"); //글자녹색
+                    // xhr - XMLRequest 객체
+                    // status - 실패상태코드 번호
+                    // error - 에러결과 메시지
+                    error: function(xhr,status,error) {
+                        alert("비동기처리 실패" + error);
+                        // 불통과 업데이트 필수
+                        pass = false;
+                    } ///////// error /////////
+                }); /////// ajax 메서드 /////////
             } ////////// else : 통과시 ///////////
         } //////////// else if : 아이디검사 /////////////
 

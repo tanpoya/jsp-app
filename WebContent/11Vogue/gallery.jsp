@@ -41,6 +41,7 @@
         <script src="./js/gallery.js"></script>
     </head>
     <body>
+    	<%@ include file="include/loginSession.jsp" %>
         <!-- 1. 상단영역 -->
         <%@ include file="include/top.jsp" %>
         <!-- 2. 메인영역 -->
