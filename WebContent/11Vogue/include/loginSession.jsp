@@ -20,7 +20,7 @@
       // 그래서 반드시 제이쿼리 실행구역으로 싸줘야함!!!
       $(function(){ /// jQB //////////////////
 
-          // 콘솔창에 전달값을 찍어봄!
+          // 콘솔창에 전달값을 찍어봄!		
           console.log(msg+"/"+auth);
 
           // 1. 로그인 환영 메시지 출력하기
@@ -92,7 +92,7 @@
 
                 // 추가된 관리자 버튼에 링크셋팅!
                 $(".sns a").eq(5)
-                .click(()=>location.href="admin/index.jsp");
+                .click(()=>location.href="admin/list.jsp");
                 
         } /////////// if /////////////////
 
