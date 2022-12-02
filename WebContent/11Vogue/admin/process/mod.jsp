@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
+    pageEncoding="UTF-8"%>
+<!-- DB연결 객체 임포트 필수! -->
+<%@page import="common.JDBConnector"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수정 처리 페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<%
-		//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
+<%
+
+	// JDBConnector 객체생성하기
+	JDBConnector jdbc = new JDBConnector();
+
+	//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
 	request.setCharacterEncoding("UTF-8");
 
 	try {
@@ -28,59 +33,21 @@
 		// 파라미터를 요청한다 -> 파라미터는 전달값을 말함!
 		// 가져오는 메서드는? -> getParameter(name속성값)
 		// ->>> request.getParameter(name속성값)
-		String dname = request.getParameter("dname");
-		String actors = request.getParameter("actors");
-		String broad = request.getParameter("broad");
-		String gubun = request.getParameter("gubun");
-		String stime = request.getParameter("stime");
-		String total = request.getParameter("total");
+		String auth = request.getParameter("auth");
 
 		// 넘어온값 찍기!
-		out.println("<h1>" + "♣ idx : " + idnum + "<br>" + "♣ dname : " + dname + "<br>" + "♣ actors : " + actors + "<br>"
-		+ "♣ broad : " + broad + "<br>" + "♣ gubun : " + gubun + "<br>" + "♣ stime : " + stime + "<br>"
-		+ "♣ total : " + total + "</h1>");
-
-		// 1. DB 연결 문자열값 만들기!
-		String DB_URL = "jdbc:mysql://localhost:3306/mydb";
-		// 형식 -> jdbc:db시스템종류://db아이피/db이름
-		// MySQL -> jdbc:mysql://localhost:3306/mydb
-
-		// 참고) 오라클 JDBC 드라이버 로드 문자열
-		// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
-
-		// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
-		String DB_USER = "root";
-
-		// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
-		String DB_PWD = "";
-
-		// 4. 연결객체 선언
-		Connection conn = null;
-
-		// 5. 쿼리문 저장객체
-		PreparedStatement pstmt = null;
-
-		// 6. 결과저장 객체 -> 입력에선 불필요!
-		// ResultSet rs = null;
+// 		out.println("<h1>" + "♣ idx : " + idnum + "<br>" + "♣ dname : " + dname + "<br>" + "♣ actors : " + actors + "<br>"
+// 		+ "♣ broad : " + broad + "<br>" + "♣ gubun : " + gubun + "<br>" + "♣ stime : " + stime + "<br>"
+// 		+ "♣ total : " + total + "</h1>");
 
 		// 7. 쿼리문작성 할당
-		String query = "UPDATE `drama_info` SET `dname`=?, `actors`=?, `broad`=?, `gubun`=?, `stime`=?, `total`=? WHERE `idx` = ?";
+		String query = "UPDATE `member` SET `auth`=? WHERE `idx` = ?";
 		// 쿼리문작성시 삽입될 데이터 부분을 물음표(?)로 처리하면
 		// PreparedStatement 객체에서 이부분을 입력하도록 해준다!
 
-		// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
-		Class.forName("com.mysql.jdbc.Driver");
-		// lib폴더의 jar파일과 연결!
-
-		// 9. DB연결하기
-		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PWD);
-
-		// 10. 성공메시지띄우기
-		out.println("DB연결 성공하였습니다!");
-
 		// 11. 쿼리문 연결 사용준비하기
 		// conn연결된 DB객체
-		pstmt = conn.prepareStatement(query);
+		jdbc.pstmt = jdbc.conn.prepareStatement(query);
 		// prepareStatement(쿼리문변수)
 		// - 쿼리문을 DB에 보낼 상태완료!
 		// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
@@ -90,26 +57,19 @@
 		// 순번은 1부터 시작!
 		// 데이터형이름은 대문자로 시작
 		// 예) setString(), setInt(), setDouble(),...
-		pstmt.setString(1, dname);
-		pstmt.setString(2, actors);
-		pstmt.setString(3, broad);
-		pstmt.setString(4, gubun);
-		pstmt.setString(5, stime);
-		pstmt.setString(6, total);
-		pstmt.setInt(7, Integer.parseInt(idnum));
+		jdbc.pstmt.setString(1, auth);
+		jdbc.pstmt.setInt(2, Integer.parseInt(idnum));
 		// 물음표 순서대로 값을 셋팅해 준다!
 
 		// 13. 쿼리를 DB에 전송하여 실행한다.
-		pstmt.executeUpdate(); // update문을 실행하는 메서드는?
+		jdbc.pstmt.executeUpdate(); // update문을 실행하는 메서드는?
 		// executeQuery() 쿼리실행 메서드 -> select 데이터셋을 가져옴
 		// executeUpdate() 쿼리실행 메서드 -> update문을 실행함 
 		// -> insert 나 update 모두 DB가 변경되는 것이므로
 		// executeUpdate() 메서드가 모두 처리한다!
 
 		// 14. 연결해제하기
-		pstmt.close();
-		conn.close();
-		// rs.close(); 필요없음!
+		jdbc.close();
 
 		// 15. 입력성공시 메시지 띄우기
 		// JS alert창 띄우고 확인시 list페이지로 돌아가기!
