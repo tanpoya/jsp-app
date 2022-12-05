@@ -91,7 +91,12 @@
    
     </table>
 
-
+	<!-- 검색박스 -->
+	<!-- 검색항목 선택 select박스 -->
+	<select name="">
+		<option value="name">이름</option>
+		<option value="mid">아이디</option>
+	</select>
 
     <!--구분테이블 박스-->
     <div class="gubun">
