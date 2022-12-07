@@ -1,4 +1,4 @@
--- ÌöåÏõêÌÖåÏù¥Î∏î ÎßåÎì§Í∏∞
+-- »∏ø¯≈◊¿Ã∫Ì ∏∏µÈ±‚
 CREATE TABLE `member`(
 `idx` int not null primary key auto_increment,
 `mid` varchar(20) not null,
@@ -10,3 +10,24 @@ CREATE TABLE `member`(
 `regdate` timestamp not null,
 `auth` char(1) default "M"
 );
+
+
+-- #####################
+-- member ¥ıπÃµ•¿Ã≈Õ «¡∑ŒΩ√¡Æ
+-- #####################
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS loopInsert$$ -- ∞∞¿∫ ¿Ã∏ß¿« PROCEDURE∏¶ ªË¡¶«—¥Ÿ.
+CREATE PROCEDURE loopInsert() -- loopInsert ∏∏µÈ±‚
+BEGIN
+   DECLARE i INT DEFAULT 1;
+   WHILE i <= 500 DO -- 500π¯ π›∫π«—¥Ÿ.
+      INSERT INTO `member`(`mid`, `mpw`, `name`, `gen`, `email1`, `email2`) 
+      VALUES (concat('idset',i),'0a435caa448ab73c73b2284d1cc9d273c896ff5f025971804970233eca2ce0b1',
+      concat('»∏ø¯∏Ì',i),'w',concat('fmail',i),'lmail.co.kr');
+      SET i = i + 1;
+   END WHILE;
+END$$
+DELIMITER $$
+
+-- ¿Ã»ƒ CALL loopInsert;∏¶ «œø© Ω««‡«œ∏È µ»¥Ÿ.

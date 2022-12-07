@@ -1,72 +1,113 @@
 package common;
 
-// í˜ì´ì§• ì†ì„±(ë³€ìˆ˜) ìº¡ìŠí™” í´ë˜ìŠ¤
-// DTO - Data Transfer Object ì˜ ì¤„ì„ë§ë¡œ
-// ë°ì´í„° ìº¡ìŠí™”ì˜ ê²Ÿí„°,ì…‹í„°ê°€ ìˆëŠ” í´ë˜ìŠ¤ë¥¼ ë¶€ë¥´ëŠ”ë§ì„!
+// ÆäÀÌÂ¡ ¼Ó¼º(º¯¼ö) Ä¸½¶È­ Å¬·¡½º
+// DTO - Data Transfer Object ÀÇ ÁÙÀÓ¸»·Î
+// µ¥ÀÌÅÍ Ä¸½¶È­ÀÇ °ÙÅÍ,¼ÂÅÍ°¡ ÀÖ´Â Å¬·¡½º¸¦ ºÎ¸£´Â¸»ÀÓ!
 public class PagingDTO {
-	// ***** í˜ì´ì§• ë³€ìˆ˜ ****** 
-	// 1.ì‹œì‘ ë ˆì½”ë“œë²ˆí˜¸ : LIMITì˜ ì‹œì‘ê°’
+	// ***** ÆäÀÌÂ¡ º¯¼ö ******
+	// 1.½ÃÀÛ ·¹ÄÚµå¹øÈ£ : LIMITÀÇ ½ÃÀÛ°ª
 	private int startNum;
-	// 2.í˜ì´ì§€ë‹¹ ë ˆì½”ë“œê°œìˆ˜ : LIMITì˜ ê°œìˆ˜
-	final private int onePageCnt = 3;
-	// 3.ì „ì²´ ë ˆì½”ë“œìˆ˜
+	// 2.ÆäÀÌÁö´ç ·¹ÄÚµå°³¼ö : LIMITÀÇ °³¼ö
+	final private int onePageCnt = 10;
+	// 3.ÀüÃ¼ ·¹ÄÚµå¼ö
 	private int totalCnt;
-	// 4.ë¦¬ìŠ¤íŠ¸ ê·¸ë£¹ìˆ˜ : ì „ì²´ê°œìˆ˜ Ã· í˜ì´ì§€ë‹¹ê°œìˆ˜
+	// 4.¸®½ºÆ® ±×·ì¼ö : ÀüÃ¼°³¼ö ¡À ÆäÀÌÁö´ç°³¼ö
 	private int listGroup;
-	// 5.ë‚¨ì€ ë ˆì½”ë“œìˆ˜ : ë¦¬ìŠ¤íŠ¸ ê·¸ë£¹ì—ì„œ ë‚¨ì€ ë ˆì½”ë“œìˆ˜
-	private int etcRecord;	
-	// 6.íŒŒë¼ë¯¸í„° í˜•ë³€í™˜ ë³€ìˆ˜(í˜„ì¬ í˜ì´ì§€ë²ˆí˜¸)
-	private int pageSeq; // ê¸°ë³¸ê°’ 1(íŒŒë¼ë¯¸í„°ê°€ ì—†ìœ¼ë©´ 1ë“¤ì–´ê°!)
-	// 7.í•œê³„ìˆ˜ ì²´í¬: ë‚˜ë¨¸ì§€ê°€ ìˆê³  ì—†ê³ ì— ë”°ë¼ 1ê°œì°¨ì´ë‚¨
+	// 5.³²Àº ·¹ÄÚµå¼ö : ¸®½ºÆ® ±×·ì¿¡¼­ ³²Àº ·¹ÄÚµå¼ö
+	private int etcRecord;
+	// 6.ÆÄ¶ó¹ÌÅÍ Çüº¯È¯ º¯¼ö(ÇöÀç ÆäÀÌÁö¹øÈ£)
+	private int pageSeq; // ±âº»°ª 1(ÆÄ¶ó¹ÌÅÍ°¡ ¾øÀ¸¸é 1µé¾î°¨!)
+	// 7.ÇÑ°è¼ö Ã¼Å©: ³ª¸ÓÁö°¡ ÀÖ°í ¾ø°í¿¡ µû¶ó 1°³Â÷ÀÌ³²
 	private int limit;
+	// 8.ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	final private int oneBlockCnt = 10;
+	// 9.ÆäÀÌÂ¡ ±×·ì¼ö : ¸®½ºÆ®±×·ì¼ö ¡À ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	private int blockGroup;
+	// 10.³²Àº ÆäÀÌÂ¡¼ö : ¸®½ºÆ®±×·ì¼ö % ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	private int etcBlock;
 
-	// ê²Ÿí„°ì™€ ì…‹í„° ìƒì„± /////////////////
-	// 1.ì‹œì‘ ë ˆì½”ë“œë²ˆí˜¸ : LIMITì˜ ì‹œì‘ê°’
+	// °ÙÅÍ¿Í ¼ÂÅÍ »ı¼º /////////////////
+	// 1.½ÃÀÛ ·¹ÄÚµå¹øÈ£ : LIMITÀÇ ½ÃÀÛ°ª
 	public int getStartNum() {
 		return startNum;
 	}
+
 	public void setStartNum(int startNum) {
 		this.startNum = startNum;
 	}
-	// 2.í˜ì´ì§€ë‹¹ ë ˆì½”ë“œê°œìˆ˜ : LIMITì˜ ê°œìˆ˜
-	// -> final ì´ë¯€ë¡œ ì…‹í„°ê°€ ì—†ë‹¤!
+
+	// 2.ÆäÀÌÁö´ç ·¹ÄÚµå°³¼ö : LIMITÀÇ °³¼ö
+	// -> final ÀÌ¹Ç·Î ¼ÂÅÍ°¡ ¾ø´Ù!
 	public int getOnePageCnt() {
 		return onePageCnt;
 	}
-	// 3.ì „ì²´ ë ˆì½”ë“œìˆ˜
+
+	// 3.ÀüÃ¼ ·¹ÄÚµå¼ö
 	public int getTotalCnt() {
 		return totalCnt;
 	}
+
 	public void setTotalCnt(int totalCnt) {
 		this.totalCnt = totalCnt;
 	}
-	// 4.ë¦¬ìŠ¤íŠ¸ ê·¸ë£¹ìˆ˜ : ì „ì²´ê°œìˆ˜ Ã· í˜ì´ì§€ë‹¹ê°œìˆ˜
+
+	// 4.¸®½ºÆ® ±×·ì¼ö : ÀüÃ¼°³¼ö ¡À ÆäÀÌÁö´ç°³¼ö
 	public int getListGroup() {
 		return listGroup;
 	}
+
 	public void setListGroup(int listGroup) {
 		this.listGroup = listGroup;
 	}
-	// 5.ë‚¨ì€ ë ˆì½”ë“œìˆ˜ : ë¦¬ìŠ¤íŠ¸ ê·¸ë£¹ì—ì„œ ë‚¨ì€ ë ˆì½”ë“œìˆ˜
+
+	// 5.³²Àº ·¹ÄÚµå¼ö : ¸®½ºÆ® ±×·ì¿¡¼­ ³²Àº ·¹ÄÚµå¼ö
 	public int getEtcRecord() {
 		return etcRecord;
 	}
+
 	public void setEtcRecord(int etcRecord) {
 		this.etcRecord = etcRecord;
 	}
-	// 6.íŒŒë¼ë¯¸í„° í˜•ë³€í™˜ ë³€ìˆ˜(í˜„ì¬ í˜ì´ì§€ë²ˆí˜¸)
+
+	// 6.ÆÄ¶ó¹ÌÅÍ Çüº¯È¯ º¯¼ö(ÇöÀç ÆäÀÌÁö¹øÈ£)
 	public int getPageSeq() {
 		return pageSeq;
 	}
+
 	public void setPageSeq(int pageSeq) {
 		this.pageSeq = pageSeq;
 	}
-	// 7.í•œê³„ìˆ˜ ì²´í¬: ë‚˜ë¨¸ì§€ê°€ ìˆê³  ì—†ê³ ì— ë”°ë¼ 1ê°œì°¨ì´ë‚¨
+
+	// 7.ÇÑ°è¼ö Ã¼Å©: ³ª¸ÓÁö°¡ ÀÖ°í ¾ø°í¿¡ µû¶ó 1°³Â÷ÀÌ³²
 	public int getLimit() {
 		return limit;
 	}
+
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+
+	// 8.ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	public int getOneBlockCnt() {
+		return oneBlockCnt;
+	}
+
+	// 9.ÆäÀÌÂ¡ ±×·ì¼ö : (¸®½ºÆ®±×·ì¼ö+³²Àº·¹ÄÚµå¼ö) ¡À ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	public int getBlockGroup() {
+		return blockGroup;
+	}
+
+	public void setBlockGroup(int blockGroup) {
+		this.blockGroup = blockGroup;
+	}
+
+	// 10.³²Àº ÆäÀÌÂ¡¼ö : (¸®½ºÆ®±×·ì¼ö+³²Àº·¹ÄÚµå¼ö) % ÆäÀÌÂ¡ ´ÜÀ§°³¼ö
+	public int getEtcBlock() {
+		return etcBlock;
+	}
+
+	public void setEtcBlock(int etcBlock) {
+		this.etcBlock = etcBlock;
 	}
 
 }
